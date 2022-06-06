@@ -1,6 +1,7 @@
 from os import getcwd
 from os.path import join
 from constants import *
+from screen_manager import set_current_screen, get_current_screen
 import pygame
 
 
@@ -14,7 +15,7 @@ image_storage: dict[str, pygame.Surface] = {}
 
 def fetch_text(font: pygame.font.Font, text: str):
     if text not in text_storage:
-        text_storage[text] = font.render(text, True, DARK_WHITE)
+        text_storage[text] = font.render(text, True, DARKER_BLACK)
     return text_storage[text]
 
 

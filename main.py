@@ -19,10 +19,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        main_menu.handle_events(event)
+        if get_current_screen() == "main menu":
+            main_menu.handle_events(event)
 
-    # code here
-    main_menu.draw(screen)
+    # main menu
+    if get_current_screen() == "main menu":
+        main_menu.draw(screen)
 
     pygame.display.flip()
     clock.tick(FRAMERATE)
