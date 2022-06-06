@@ -19,7 +19,13 @@ def fetch_text(font: pygame.font.Font, text: str):
     return text_storage[text]
 
 
-def fetch_image(*path):
-    if str(path) in image_storage:
-        image_storage[str(path)] = pygame.image.load(*path).convert_alpha()
-    return image_storage[str(path)]
+def fetch_image(name, resize=(1, 1)):
+    serialized = f"{name}|{resize}"
+    if serialized not in image_storage:
+        image_storage[serialized] = pygame.image.load(get_path(name)).convert_alpha()
+        if resize != (1, 1):
+            size = list(image_storage[serialized].get_size())
+            size[0] *= resize[0]
+            size[1] *= resize[1]
+            image_storage[serialized] = pygame.transform.scale(image_storage[serialized], size)
+    return image_storage[serialized]

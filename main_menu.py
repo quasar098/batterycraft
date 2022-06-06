@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from utils import *
+from battery import Battery
 
 
 class MainMenu:
@@ -8,6 +9,7 @@ class MainMenu:
         self.font = font
         self.play_rect = pygame.Rect((WIDTH/2-200, HEIGHT/2, 400, 100))
         self.credits_rect = pygame.Rect((WIDTH/2-200, HEIGHT/2+125, 400, 100))
+        self.left_battery = Battery(1)
 
     def draw(self, screen: pygame.Surface):
         # rects
@@ -18,6 +20,9 @@ class MainMenu:
         credits_text = fetch_text(self.font, "credits")
         screen.blit(play_game_text, play_game_text.get_rect(center=self.play_rect.center))
         screen.blit(credits_text, credits_text.get_rect(center=self.credits_rect.center))
+
+        # batteries
+        self.left_battery.draw(screen)
 
     def handle_events(self, event: pygame.event.Event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
