@@ -1,11 +1,11 @@
+# noinspection PyUnresolvedReferences
 import pygame
-
 from utils import *
 
 
 class Battery:
-    def __init__(self, tier=1, pos: tuple[float, float] = (100, 100)):
-        self.tier = tier  # 1 2 3 or 4 (teal, orange, blue, red)
+    def __init__(self, tier=0, pos: tuple[float, float] = (100, 100)):
+        self.tier = tier  # 0 1 2 3 or 4 (case, teal, orange, blue, red)
         self.x, self.y = pos
 
     @property
@@ -18,7 +18,7 @@ class Battery:
 
     @property
     def image(self):
-        return fetch_image("battery_" + ["teal", "orange", "blue", "red"][self.tier-1] + ".png", (10, 3))
+        return fetch_image("battery_" + ["case", "teal", "orange", "blue", "red"][self.tier] + ".png", (4, 4))
 
     @property
     def rect(self):
