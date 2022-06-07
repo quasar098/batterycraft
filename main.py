@@ -27,6 +27,8 @@ while running:
             main_menu.handle_events(event)
         if get_current_screen() == "credits":
             creds.handle_events(event)
+        if get_current_screen() == "game":
+            game.handle_events(event)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
@@ -38,6 +40,8 @@ while running:
         main_menu.draw(screen)
     if get_current_screen() == "credits":
         creds.draw(screen)
+    if get_current_screen() == "game":
+        game.draw(screen)
 
     update_particles(screen)
     calm_shake()

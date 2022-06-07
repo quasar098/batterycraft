@@ -8,6 +8,8 @@ class Battery:
         self.tier = tier  # 0 1 2 3 or 4 (case, teal, orange, blue, red)
         self.x, self.y = pos
         self.oy = 0
+        self.grab_position = (0, 0)
+        self.selected = False
 
     @property
     def pos(self):
@@ -26,4 +28,19 @@ class Battery:
         return self.image.get_rect(center=self.pos)
 
     def draw(self, screen: pygame.Surface):
+        if self.selected:
+            self.x = self.grab_position[0]+pygame.mouse.get_pos()[0]
+            self.y = self.grab_position[1]+pygame.mouse.get_pos()[1]
         screen.blit(self.image, self.rect)
+
+    def handle_events(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                if self.rect.collidepoint(pygame.mouse.get_pos()):
+                    self.selected = True
+                    self.grab_position = self.x - pygame.mouse.get_pos()[0], self.y - pygame.mouse.get_pos()[1]
+                    return True
+        if event.type == pygame.MOUSEBUTTONUP:
+            if event.button == 1:
+                self.selected = False
+                return True
