@@ -4,6 +4,7 @@ import pygame
 from constants import *
 from utils import *
 from battery import Battery
+from foil import Foil
 
 
 class MainMenu:
@@ -11,8 +12,14 @@ class MainMenu:
         self.font = font
         self.play_rect = pygame.Rect((WIDTH/2-200, HEIGHT/2, 400, 100))
         self.credits_rect = pygame.Rect((WIDTH/2-200, HEIGHT/2+125, 400, 100))
-        self.left_battery = Battery(1, (200, HEIGHT/2))
-        self.right_battery = Battery(4, (WIDTH-200, HEIGHT/2))
+        self.left_wheel = [Battery(4), Battery(1), Battery(3), Battery(2), Battery(2), Battery(3), Battery(2), Battery(3)]
+        for count, battery in enumerate(self.left_wheel):
+            battery.oy = count/2*HEIGHT-HEIGHT*2
+            battery.tier = rand(0, 4)
+        self.right_wheel = [Battery(4), Battery(1), Battery(3), Battery(2), Battery(2), Battery(3), Battery(2), Battery(3)]
+        for count2, battery2 in enumerate(self.right_wheel):
+            battery2.oy = count2/2*HEIGHT-HEIGHT*2+HEIGHT/4
+            battery2.tier = rand(0, 4)
         self.logo_image = fetch_image("battery_craft.png", (20, 20))
 
     def draw(self, screen: pygame.Surface):
@@ -27,10 +34,22 @@ class MainMenu:
 
         # batteries
         tick = pygame.time.get_ticks()
-        self.left_battery.y = HEIGHT/2+120+sin(tick/500)*50
-        self.right_battery.y = HEIGHT/2+120+sin((tick+1000)/500)*50
-        self.left_battery.draw(screen)
-        self.right_battery.draw(screen)
+        for item in self.left_wheel:
+            item.y = 0
+            item.draw(screen)
+            item.x = 200
+            item.oy += 4
+            if item.oy > HEIGHT*2:
+                item.oy = -HEIGHT*2
+                item.tier = rand(0, 4)
+        for item in self.right_wheel:
+            item.y = 0
+            item.draw(screen)
+            item.x = WIDTH-200
+            item.oy += 4
+            if item.oy > HEIGHT*2:
+                item.oy = -HEIGHT*2
+                item.tier = rand(0, 4)
 
         # title
         self.logo_image = fetch_image("battery_craft.png", (20, 20), rot=sin(tick/800)*10)

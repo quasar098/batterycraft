@@ -11,3 +11,5 @@ class Game:
         self.big_font = b_font
         self.s_font = s_font
 
+    def draw(self, screen: pygame.Surface):
+        pass

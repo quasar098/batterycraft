@@ -7,10 +7,11 @@ class Battery:
     def __init__(self, tier=0, pos: tuple[float, float] = (100, 100)):
         self.tier = tier  # 0 1 2 3 or 4 (case, teal, orange, blue, red)
         self.x, self.y = pos
+        self.oy = 0
 
     @property
     def pos(self):
-        return self.x, self.y
+        return self.x, self.y+self.oy
 
     @pos.setter
     def pos(self, set_to: tuple[float, float]):
