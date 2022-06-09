@@ -4,6 +4,7 @@ possible_screens = [
     "main menu",
     "game",
     "credits",
+    "highscores"
 ]
 
 

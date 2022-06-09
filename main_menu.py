@@ -4,7 +4,6 @@ import pygame
 from constants import *
 from utils import *
 from battery import Battery
-from foil import Foil
 
 
 class MainMenu:
@@ -29,14 +28,8 @@ class MainMenu:
 
         play_game_text = fetch_text(self.font, "play game")
         credits_text = fetch_text(self.font, "credits")
-        halfpos = (pygame.mouse.get_pos()[0]-WIDTH/2)/10+WIDTH/2
-        screen.blit(play_game_text, play_game_text.get_rect(center=self.play_rect.center).move(
-            clamp(halfpos, self.play_rect.left+100, self.play_rect.right-100)-self.play_rect.centerx, 0
-        ))
-        screen.blit(credits_text, credits_text.get_rect(center=self.credits_rect.center).move(
-            clamp(halfpos, self.credits_rect.left+100, self.credits_rect.right-100)-
-            self.credits_rect.centerx, 0
-        ))
+        screen.blit(play_game_text, play_game_text.get_rect(center=self.play_rect.center))
+        screen.blit(credits_text, credits_text.get_rect(center=self.credits_rect.center))
 
         # batteries
         tick = pygame.time.get_ticks()
